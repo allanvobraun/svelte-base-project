@@ -9,6 +9,8 @@ module.exports = {
         project: ['./tsconfig.json'],
         extraFileExtensions: ['.svelte'],
     },
+    "ignorePatterns": ["./eslintrc.js", "./vite.config.js"],
+
     "extends": [
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking"
@@ -27,6 +29,7 @@ module.exports = {
     settings: {
         // eslint-disable-next-line global-require
         'svelte3/typescript': () => require('typescript'), // pass the TypeScript package to the Svelte plugin
+        "svelte3/ignore-styles": () => true
     },
     rules: {
         "@typescript-eslint/adjacent-overload-signatures": "error",
@@ -136,7 +139,6 @@ module.exports = {
         "no-new-wrappers": "error",
         "no-shadow": "error",
         "no-throw-literal": "error",
-        "no-trailing-spaces": "error",
         "no-undef-init": "error",
         "no-underscore-dangle": "off",
         "no-unsafe-finally": "error",
@@ -145,6 +147,8 @@ module.exports = {
         "no-use-before-define": "off",
         "no-var": "error",
         "object-shorthand": "error",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
         "one-var": [
             "error",
             "never"

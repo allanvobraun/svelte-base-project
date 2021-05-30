@@ -1,43 +1,27 @@
 <script lang="ts">
-  import logo from '@/assets/svelte.png';
-  import Counter from '@/components/Counter.svelte'
-
-  export const a = ['1']
-
-  type batata = '1dawdwa'
+  import GamesInput from '@/components/GamesInput.svelte';
 </script>
 
-<main>
-  <img src={logo} alt="Svelte Logo" />
-  <h1>Hello Typescript!</h1>
-
-  <Counter />
+<div class="content-wrapper">
+  <h1>GameOver.gg</h1>
 
   <p>
-    Visit <a href="https://svelte.dev">svelte.dev</a> to learn how to build Svelte
-    apps.
+    Add the games you have alrady completed and prove that you are an experienced gamer.
   </p>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme">SvelteKit</a> for
-    the officially supported framework, also powered by Vite!
-  </p>
-</main>
+  <GamesInput/>
+</div>
 
 <style>
-  img {
-    height: 16rem;
-    width: 16rem;
-  }
 
   h1 {
-    color: #ff3e00;
+    color: var(--orange);
     text-transform: uppercase;
-    font-size: 4rem;
+    font-size: 5rem;
     font-weight: 100;
     line-height: 1.1;
-    margin: 2rem auto;
+    margin: .5rem auto;
     max-width: 14rem;
+    font-family: nebula,sans-serif;
   }
 
   p {

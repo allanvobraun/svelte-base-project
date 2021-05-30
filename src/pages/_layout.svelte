@@ -1,7 +1,5 @@
-<script>
-  import { layout, url } from '@roxi/routify';
-
-  console.log($layout.children);
+<script lang="ts">
+    import { url, layout } from "@roxi/routify";
 </script>
 
 <header>
