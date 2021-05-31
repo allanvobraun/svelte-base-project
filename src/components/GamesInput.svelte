@@ -1,6 +1,6 @@
 <div class="form__group field">
-    <input type="text" class="form__field" placeholder="Name" name="name" id='name' required />
-    <label for="name" class="form__label">Name</label>
+    <input type="text" class="form__field" placeholder="Game" name="name" id='name' required />
+    <label for="name" class="form__label">Game</label>
 </div>
 
 <style lang="scss">
