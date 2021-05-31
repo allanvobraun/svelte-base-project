@@ -66,6 +66,8 @@ module.exports = {
         ],
         "@typescript-eslint/consistent-type-assertions": "error",
         "@typescript-eslint/dot-notation": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-misused-promises": "off",
         "@typescript-eslint/member-delimiter-style": [
             "error",
             {
