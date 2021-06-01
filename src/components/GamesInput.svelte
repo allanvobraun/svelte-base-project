@@ -1,4 +1,5 @@
 <script lang="ts">
+    import clickOutside from '@/directives/clickOutside';
     let options: string[] = [];
     let inputText = '';
     let rgbON = false;
@@ -19,13 +20,14 @@
 
     function onFocusLoss(): void {
         options = [];
-        rgbON = inputText !== '';
+        if (inputText === '') {
+            rgbON = false;
+        }
     }
 
 </script>
 
-<div class="form__group field">
-<!--    on:blur={onFocusLoss}-->
+<div use:clickOutside on:click_outside={onFocusLoss} class="form__group field">
     <input
             on:focus={() => rgbON = true }
             on:input={(e) => onChangeText(e.target.value)}
