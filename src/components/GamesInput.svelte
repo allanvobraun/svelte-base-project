@@ -1,81 +1,193 @@
+<script lang="ts">
+    let options: string[] = [];
+    let inputText = '';
+    let rgbON = false;
+
+    function setText(text: string): void {
+        inputText = text;
+    }
+
+    function onChangeText(text: string): void {
+        if (text.length < 3) return;
+        options = getGames(text);
+        console.log(text);
+    }
+
+    function getGames(query: string): string[] {
+        return ['jogo1', 'jogo2'];
+    }
+
+    function onFocusLoss(): void {
+        options = [];
+        rgbON = inputText !== '';
+    }
+
+</script>
+
 <div class="form__group field">
-    <input type="text" class="form__field" placeholder="Game" name="name" id='name' required />
+<!--    on:blur={onFocusLoss}-->
+    <input
+            on:focus={() => rgbON = true }
+            on:input={(e) => onChangeText(e.target.value)}
+            bind:value={inputText}
+            autocomplete="off"
+            type="text"
+            class="form__field"
+            class:selected="{rgbON}"
+            placeholder="Game"
+            id='name'
+            required/>
+
+    {#if options.length !== 0}
+        <ul id="dropdown" class="dropdown-content">
+            {#each options as option }
+                <li on:click={() => setText(option)}>
+                <span>
+                    <span class="highlight">{option}</span>
+                </span>
+                </li>
+            {/each}
+        </ul>
+    {/if}
+
     <label for="name" class="form__label">Game</label>
 </div>
 
 <style lang="scss">
-    $primary: #bd00ff;
-    $secondary: var(--orange);
-    $white: #fff;
-    $gray: #9b9b9b;
-    .form__group {
-        position: relative;
-        padding: 15px 0 0;
-        margin-top: 10px;
-        width: 50%;
-    }
+  @use "sass:color";
 
-    .form__field {
-        font-family: inherit;
-        width: 100%;
-        border: 0;
-        border-bottom: 2px solid $gray;
-        outline: 0;
-        font-size: 1.3rem;
-        color: $white;
-        padding: 7px 0;
-        background: transparent;
-        transition: border-color 0.2s;
+  $primary: #bd00ff;
+  $secondary: var(--orange);
+  $white: #fff;
+  $gray: #9b9b9b;
+  $black: #1e1e1e;
 
-    &::placeholder {
-         color: transparent;
-     }
+  /** dropdown **/
 
-    &:placeholder-shown ~ .form__label {
-         font-size: 1.3rem;
-         cursor: text;
-         top: 20px;
-     }
-    }
+  #dropdown {
+    display: block;
+    transform-origin: 0 0 0;
+    opacity: 1;
+  }
 
-    .form__label {
-        position: absolute;
-        top: 0;
-        display: block;
-        transition: 0.2s;
-        font-size: 1rem;
-        color: $gray;
-    }
+  .dropdown-content {
+    background-color: $black;
+    margin: 0;
+    display: none;
+    min-width: 100px;
+    overflow-y: auto;
+    opacity: 0;
+    z-index: 9999;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    box-shadow: rgba(0, 0, 0) 0 3px 8px;
 
-    .form__field:focus {
-    ~ .form__label {
-        position: absolute;
-        top: 0;
-        display: block;
-        transition: 0.2s;
-        font-size: 1rem;
-        color: $primary;
-        font-weight:700;
-    }
-    padding-bottom: 6px;
-    font-weight: 700;
-    border-width: 3px;
-    border-image: linear-gradient(to right, $primary,$secondary);
-    border-image-slice: 1;
-    }
-    /* reset input */
-    .form__field{
-    &:required,&:invalid { box-shadow:none; }
-    }
-    /* demo */
-    body {
-        font-family: 'Poppins', sans-serif;
+    li {
+      clear: both;
+      color: rgba(0, 0, 0, 0.87);
+      cursor: pointer;
+      height: 50px;
+      line-height: 1.5rem;
+      width: 100%;
+      text-align: left;
+      display: flex;
+
+      &:hover {
+        background-color: color.adjust($black, $lightness: +10%);
+      }
+
+      span {
+        height: 50px;
+
+        font-size: 16px;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        font-size: 1.5rem;
-        background-color:#222222;
+        line-height: 22px;
+        flex-grow: 1;
+        padding: 0 .5rem;
+
+        .highlight {
+          height: 50px;
+          color: white;
+        }
+      }
     }
+  }
+
+  .form__group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 50%;
+  }
+
+  .form__field {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid $gray;
+    outline: 0;
+    font-size: 1.3rem;
+    color: $white;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+
+    &::placeholder {
+      color: transparent;
+    }
+
+    &:placeholder-shown ~ .form__label {
+      font-size: 1.3rem;
+      cursor: text;
+      top: 20px;
+    }
+  }
+
+  .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: $gray;
+  }
+
+  .form__field.selected {
+    ~ .form__label {
+      position: absolute;
+      top: 0;
+      display: block;
+      transition: 0.2s;
+      font-size: 1rem;
+      color: $primary;
+      font-weight: 700;
+    }
+
+    padding-bottom: 6px;
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, $primary, $secondary);
+    border-image-slice: 1;
+  }
+
+  /* reset input */
+  .form__field {
+    &:required, &:invalid {
+      box-shadow: none;
+    }
+  }
+
+  /* demo */
+  body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 1.5rem;
+    background-color: #222222;
+  }
 </style>
