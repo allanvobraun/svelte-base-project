@@ -1,5 +1,6 @@
 <script lang="ts">
     import clickOutside from '@/directives/clickOutside';
+
     let options: string[] = [];
     let inputText = '';
     let rgbON = false;
@@ -10,13 +11,16 @@
 
     function onChangeText(text: string): void {
         if (text.length < 3) return;
-        options = getGames(text);
+        // void getGames(text).catch(err => {
+        //     console.log(err);
+        // });
         console.log(text);
     }
 
-    function getGames(query: string): string[] {
-        return ['jogo1', 'jogo2'];
-    }
+    // async function getGames(query: string): Promise<void> {
+    //     const result = await gameApi.search(query);
+    //     console.log(result);
+    // }
 
     function onFocusLoss(): void {
         options = [];

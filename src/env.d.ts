@@ -1,5 +1,7 @@
 interface ImportMetaEnv {
-    VITE_IGDB_ID: string;
-    VITE_IGDB_SECRET: string;
-    VITE_IGDB_URL: string;
+    IGDB_ID: string;
+    IGDB_SECRET: string;
+    TWITCH_URL: string;
+    IGDB_API_URL: string;
+    IGDB_ACCESS_TOKEN: string;
 }
