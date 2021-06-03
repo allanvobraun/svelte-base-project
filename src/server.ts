@@ -17,7 +17,7 @@ interface IGBDResponse {
 }
 
 app.get('/api/search/:query', (req, res) => {
-        const igdbRequestBody = `search "${req.params.query}";fields name;limit 10;`;
+        const igdbRequestBody = `search "${req.params.query}";fields name;limit 5;`;
 
         axios.post(process.env.IGDB_API_URL + 'games', igdbRequestBody, {
             headers: igdbAuth.headers

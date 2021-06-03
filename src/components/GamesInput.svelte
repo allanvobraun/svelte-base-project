@@ -1,6 +1,7 @@
 <script lang="ts">
     import clickOutside from '@/directives/clickOutside';
     import axios from "axios";
+    import debounce from "lodash.debounce";
 
     let options: string[] = [];
     let inputText = '';
@@ -11,9 +12,15 @@
         inputText = text;
     }
 
+
+    const inputDebounce = debounce((e: Event) => {
+        const target = e.target as HTMLInputElement;
+        onChangeText(target.value);
+    }, 300);
+
     function onChangeText(text: string): void {
         if (text.length < 3) return;
-        getGames(text)
+        getGames(text.trim())
             .then((games) => {
                 options = games;
             })
@@ -39,7 +46,7 @@
 <div use:clickOutside on:click_outside={onFocusLoss} class="form__group field">
     <input
             on:focus={() => rgbON = true }
-            on:input={(e) => onChangeText(e.target.value)}
+            on:input={inputDebounce}
             bind:value={inputText}
             autocomplete="off"
             type="text"
