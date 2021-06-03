@@ -1,9 +1,11 @@
 <script lang="ts">
     import clickOutside from '@/directives/clickOutside';
+    import axios from "axios";
 
     let options: string[] = [];
     let inputText = '';
     let rgbON = false;
+    const searchURL: string = import.meta.env.VITE_SERVER_URL + 'search/';
 
     function setText(text: string): void {
         inputText = text;
@@ -11,16 +13,19 @@
 
     function onChangeText(text: string): void {
         if (text.length < 3) return;
-        // void getGames(text).catch(err => {
-        //     console.log(err);
-        // });
-        console.log(text);
+        getGames(text)
+            .then((games) => {
+                options = games;
+            })
+            .catch((err) => {
+                console.log(err.response);
+            });
     }
 
-    // async function getGames(query: string): Promise<void> {
-    //     const result = await gameApi.search(query);
-    //     console.log(result);
-    // }
+    async function getGames(query: string): Promise<string[]> {
+        const response = await axios.get(searchURL + query);
+        return response.data as string[];
+    }
 
     function onFocusLoss(): void {
         options = [];

@@ -4,4 +4,5 @@ interface ImportMetaEnv {
     TWITCH_URL: string;
     IGDB_API_URL: string;
     IGDB_ACCESS_TOKEN: string;
+    VITE_SERVER_URL: string;
 }

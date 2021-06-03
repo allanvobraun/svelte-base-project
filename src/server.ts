@@ -2,8 +2,10 @@ import express from 'express';
 import axios from "axios";
 import dotenv from 'dotenv';
 import {IGDBAuth} from "./util/IGDBAuth";
+import cors from 'cors';
 
 const app = express();
+app.use(cors({credentials: true, origin: true}));
 const PORT = 8000;
 dotenv.config();
 
@@ -34,7 +36,8 @@ app.get('/api/search/:query', (req, res) => {
 app.listen(PORT, () => {
     igdbAuth.init().then(() => {
         console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
-    }).catch(() => {
+    }).catch((err) => {
+        console.log(err);
         console.log(`⚡️[server]: Failed to autenticate with IGDB`);
         process.exit(1);
     });

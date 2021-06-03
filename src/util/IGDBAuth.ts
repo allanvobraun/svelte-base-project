@@ -39,7 +39,6 @@ export class IGDBAuth {
             this.buildHeader(this.igdbAuth.access_token);
             return;
         }
-        throw new Error('Autenticação falhou');
     }
 
     private buildHeader(access_token: string): void {
