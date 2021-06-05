@@ -14,10 +14,10 @@
     {#if options.length !== 0}
         <ul id="dropdown" class="dropdown-content">
             {#each options as option }
-                <li on:click={() => optionClick(option)}>
-                <span>
-                    <span class="highlight">{option}</span>
-                </span>
+                <li on:click={() => optionClick(option)} transition:slide>
+                    <span>
+                        <span class="highlight">{option}</span>
+                    </span>
                 </li>
             {/each}
         </ul>
@@ -29,6 +29,7 @@
     import clickOutside from '@/directives/clickOutside';
     import axios from "axios";
     import debounce from "lodash.debounce";
+    import { slide } from 'svelte/transition';
 
     let options: string[] = [];
     let inputText = '';
