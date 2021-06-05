@@ -2501,6 +2501,11 @@ svelte-preprocess@^4.0.0, svelte-preprocess@^4.7.3:
     detect-indent "^6.0.0"
     strip-indent "^3.0.0"
 
+svelte-textfit@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/svelte-textfit/-/svelte-textfit-1.1.1.tgz#d2bc569508d4998954db26a0768a77dd7153274b"
+  integrity sha512-y5bqvcEW47NvOod3m8BiDs0SpSBcrC5kArB1iO6sSytsnnfi+OwfBwqv577eTTdKoX3iIwZk0bnBD/EdqULoow==
+
 svelte@^3.37.0:
   version "3.38.2"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.38.2.tgz#55e5c681f793ae349b5cc2fe58e5782af4275ef5"
