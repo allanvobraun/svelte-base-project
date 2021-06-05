@@ -1,21 +1,20 @@
 import {Readable, Writable, writable} from 'svelte/store';
 
-// const games: string[] = [];
-// export const gameList = writable(games);
 
-interface GamesStore<T> extends Readable<T> {
+
+interface GamesStore extends Readable<Set<string>> {
     push: (item: string) => void;
 }
 
 
-function createStore(): GamesStore<string[]> {
-    const gameList: Writable<string[]> = writable([]);
+function createStore(): GamesStore {
+    const gameList: Writable<Set<string>> = writable(new Set<string>());
     const { subscribe, update } = gameList;
 
     return {
         subscribe,
         push(item: string): void {
-            update(n => [...n, item]);
+            update(n => new Set([...n, item]));
         }
     };
 }
