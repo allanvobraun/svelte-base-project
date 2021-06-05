@@ -9,7 +9,7 @@
     <div class="game-input">
         <GamesInput/>
     </div>
-    <div style="margin-top: 50px">
+    <div style="margin: 50px auto">
         <BubbleButton>
             <Fa icon={faPlus} size="2x"/>
         </BubbleButton>
@@ -36,38 +36,42 @@
 
 </script>
 
-<style>
-    .game-input {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-self: center;
-        width: 100vw;
-        margin-top: 100px;
-    }
+<style lang="scss">
+  .game-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
+    width: 100vw;
+    margin-top: 100px;
+  }
 
-    .title {
-        color: var(--orange);
-        text-transform: uppercase;
-        font-weight: 100;
-        margin: .2rem auto .5rem auto;
-        font-family: nebula, sans-serif;
+  .title {
+    color: var(--orange);
+    text-transform: uppercase;
+    font-weight: 100;
+    margin: .2rem -3px .5rem auto;
+    font-family: nebula, sans-serif;
+
+    @media only screen and (min-width: 480px) {
+      margin: .2rem auto .5rem auto;
+    }
+  }
+
+  p {
+    max-width: 14rem;
+    margin: 1rem auto;
+    color: var(--white);
+    font-size: 1.25rem;
+  }
+
+  @media (min-width: 480px) {
+    h1 {
+      max-width: none;
     }
 
     p {
-        max-width: 14rem;
-        margin: 1rem auto;
-        color: var(--white);
-        font-size: 1.25rem;
+      max-width: none;
     }
-
-    @media (min-width: 480px) {
-        h1 {
-            max-width: none;
-        }
-
-        p {
-            max-width: none;
-        }
-    }
+  }
 </style>

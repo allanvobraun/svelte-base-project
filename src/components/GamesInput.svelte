@@ -163,7 +163,11 @@
     position: relative;
     padding: 15px 0 0;
     margin-top: 10px;
-    width: 50%;
+    width: 85%;
+
+    @media only screen and (min-width:480px) {
+      width: 55%;
+    }
   }
 
   .form__field {
