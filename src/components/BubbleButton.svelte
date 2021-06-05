@@ -1,9 +1,11 @@
-<button class="bubbly-button" class:animate={animationOn} on:click={animateButton}>
+<button class="bubbly-button" class:animate={animationOn} on:click={buttonClick}>
     <slot/>
 </button>
 
 <script lang="ts">
+    import { createEventDispatcher } from 'svelte';
 
+    const dispatch = createEventDispatcher();
     let animationOn = false;
 
     function animateButton(): void {
@@ -11,6 +13,11 @@
         setTimeout(() => {
             animationOn = false;
         }, 700);
+    }
+
+    function buttonClick(): void {
+        animateButton();
+        dispatch('click');
     }
 </script>
 

@@ -7,14 +7,13 @@
     </p>
 
     <div class="game-input">
-        <GamesInput/>
+        <GamesInput bind:inputText={gameText}/>
     </div>
     <div style="margin: 50px auto">
-        <BubbleButton>
+        <BubbleButton on:click={addGame}>
             <Fa icon={faPlus} size="2x"/>
         </BubbleButton>
     </div>
-
 </div>
 
 <script lang="ts">
@@ -24,15 +23,24 @@
     import {faPlus} from '@fortawesome/free-solid-svg-icons';
     import {onMount} from 'svelte';
     import {textfit} from 'svelte-textfit';
+    import {gameList} from "@/stores/gamesStore";
 
     let parent: HTMLElement;
     let update = false;
+    let gameText: string;
+
 
     onMount(() => {
         window.addEventListener("resize", () => {
             update = !update;
         });
     });
+
+    function addGame(): void {
+        if (gameText.length === 0 ) return;
+        gameList.update(items => [...items, gameText]);
+        console.log($gameList);
+    }
 
 </script>
 

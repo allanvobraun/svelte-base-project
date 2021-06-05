@@ -32,7 +32,7 @@
     import { slide } from 'svelte/transition';
 
     let options: string[] = [];
-    let inputText = '';
+    export let inputText = '';
     let rgbON = false;
     let loading = false;
     const searchURL: string = import.meta.env.VITE_SERVER_URL + 'search/';
