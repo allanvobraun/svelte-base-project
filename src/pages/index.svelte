@@ -1,5 +1,8 @@
 <script lang="ts">
   import GamesInput from '@/components/GamesInput.svelte';
+  import BubbleButton from '@/components/BubbleButton.svelte';
+  import Fa from 'svelte-fa';
+  import { faPlus } from '@fortawesome/free-solid-svg-icons';
 </script>
 
 <div class="content-wrapper">
@@ -12,6 +15,10 @@
   <div class="game-input">
     <GamesInput />
   </div>
+  <div style="margin-top: 50px">
+    <BubbleButton><Fa icon={faPlus} size="2x"/></BubbleButton>
+  </div>
+
 </div>
 
 <style>

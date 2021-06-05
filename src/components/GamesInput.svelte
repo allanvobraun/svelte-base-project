@@ -1,3 +1,30 @@
+<div use:clickOutside on:click_outside={onFocusLoss} class="form__group field" class:selected="{rgbON}">
+    <input
+            on:focus={() => rgbON = true }
+            on:input={inputDebounce}
+            bind:value={inputText}
+            autocomplete="off"
+            type="text"
+            class="form__field"
+            placeholder="Game"
+            id='name'
+            required/>
+    <div class="botton-line" class:loading="{loading}"></div>
+
+    {#if options.length !== 0}
+        <ul id="dropdown" class="dropdown-content">
+            {#each options as option }
+                <li on:click={() => optionClick(option)}>
+                <span>
+                    <span class="highlight">{option}</span>
+                </span>
+                </li>
+            {/each}
+        </ul>
+    {/if}
+    <label for="name" class="form__label">Game</label>
+</div>
+
 <script lang="ts">
     import clickOutside from '@/directives/clickOutside';
     import axios from "axios";
@@ -48,40 +75,12 @@
             rgbON = false;
         }
     }
-
 </script>
-
-<div use:clickOutside on:click_outside={onFocusLoss} class="form__group field" class:selected="{rgbON}">
-    <input
-            on:focus={() => rgbON = true }
-            on:input={inputDebounce}
-            bind:value={inputText}
-            autocomplete="off"
-            type="text"
-            class="form__field"
-            placeholder="Game"
-            id='name'
-            required/>
-    <div class="botton-line" class:loading="{loading}"></div>
-
-    {#if options.length !== 0}
-        <ul id="dropdown" class="dropdown-content">
-            {#each options as option }
-                <li on:click={() => optionClick(option)}>
-                <span>
-                    <span class="highlight">{option}</span>
-                </span>
-                </li>
-            {/each}
-        </ul>
-    {/if}
-    <label for="name" class="form__label">Game</label>
-</div>
 
 <style lang="scss">
   @use "sass:color";
 
-  $primary: #bd00ff;
+  $primary: var(--purple);
   $secondary: var(--orange);
   $white: #fff;
   $gray: #9b9b9b;
@@ -149,7 +148,7 @@
 
   @keyframes loadingGradient {
     0% {
-      background-position: 0%
+      background-position: 0
     }
     50% {
       background-position: 50%
