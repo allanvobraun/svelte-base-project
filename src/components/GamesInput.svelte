@@ -6,26 +6,34 @@
     let options: string[] = [];
     let inputText = '';
     let rgbON = false;
+    let loading = false;
     const searchURL: string = import.meta.env.VITE_SERVER_URL + 'search/';
 
-    function setText(text: string): void {
+    function optionClick(text: string): void {
         inputText = text;
+        options = [];
     }
-
 
     const inputDebounce = debounce((e: Event) => {
         const target = e.target as HTMLInputElement;
         onChangeText(target.value);
-    }, 300);
+    }, 200);
 
     function onChangeText(text: string): void {
-        if (text.length < 3) return;
+        if (text.length < 3) {
+            options = [];
+        }
+
+        loading = true;
         getGames(text.trim())
             .then((games) => {
                 options = games;
             })
             .catch((err) => {
                 console.log(err.response);
+            })
+            .finally(() => {
+                loading = false;
             });
     }
 
@@ -43,7 +51,7 @@
 
 </script>
 
-<div use:clickOutside on:click_outside={onFocusLoss} class="form__group field">
+<div use:clickOutside on:click_outside={onFocusLoss} class="form__group field" class:selected="{rgbON}">
     <input
             on:focus={() => rgbON = true }
             on:input={inputDebounce}
@@ -51,15 +59,15 @@
             autocomplete="off"
             type="text"
             class="form__field"
-            class:selected="{rgbON}"
             placeholder="Game"
             id='name'
             required/>
+    <div class="botton-line" class:loading="{loading}"></div>
 
     {#if options.length !== 0}
         <ul id="dropdown" class="dropdown-content">
             {#each options as option }
-                <li on:click={() => setText(option)}>
+                <li on:click={() => optionClick(option)}>
                 <span>
                     <span class="highlight">{option}</span>
                 </span>
@@ -67,7 +75,6 @@
             {/each}
         </ul>
     {/if}
-
     <label for="name" class="form__label">Game</label>
 </div>
 
@@ -133,6 +140,25 @@
     }
   }
 
+  /// Botton line
+  .botton-line {
+    height: 3px;
+    width: 100%;
+    background-color: $gray;
+  }
+
+  @keyframes loadingGradient {
+    0% {
+      background-position: 0%
+    }
+    50% {
+      background-position: 50%
+    }
+    100% {
+      background-position: 100%
+    }
+  }
+
   .form__group {
     position: relative;
     padding: 15px 0 0;
@@ -143,14 +169,12 @@
   .form__field {
     font-family: inherit;
     width: 100%;
-    border: 0;
-    border-bottom: 2px solid $gray;
     outline: 0;
     font-size: 1.3rem;
     color: $white;
     padding: 7px 0;
+    border: 0;
     background: transparent;
-    transition: border-color 0.2s;
 
     &::placeholder {
       color: transparent;
@@ -170,10 +194,11 @@
     transition: 0.2s;
     font-size: 1rem;
     color: $gray;
+
   }
 
-  .form__field.selected {
-    ~ .form__label {
+  .form__group.selected {
+    .form__label {
       position: absolute;
       top: 0;
       display: block;
@@ -183,11 +208,15 @@
       font-weight: 700;
     }
 
-    padding-bottom: 6px;
-    font-weight: 700;
-    border-width: 3px;
-    border-image: linear-gradient(to right, $primary, $secondary);
-    border-image-slice: 1;
+    .botton-line {
+      background: linear-gradient(to right, $primary, $secondary);
+
+      &.loading {
+        background: linear-gradient(to right, $primary 0%, $secondary 50%, $primary 100%);
+        background-size: 400%;
+        animation: loadingGradient 1s ease-out infinite;
+      }
+    }
   }
 
   /* reset input */
@@ -197,15 +226,4 @@
     }
   }
 
-  /* demo */
-  body {
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    font-size: 1.5rem;
-    background-color: #222222;
-  }
 </style>

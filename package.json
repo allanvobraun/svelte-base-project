@@ -7,7 +7,7 @@
     "dev:vite": "vite",
     "dev:routify": "routify",
     "dev:server": "ts-node --project ./node.tsconfig.json ./src/server.ts",
-    "build": "svelte-check && routify -b && vite build",
+    "build": "routify -b && vite build",
     "serve": "vite preview",
     "validate": "svelte-check"
   },
