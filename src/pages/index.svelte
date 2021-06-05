@@ -23,7 +23,7 @@
     import {faPlus} from '@fortawesome/free-solid-svg-icons';
     import {onMount} from 'svelte';
     import {textfit} from 'svelte-textfit';
-    import {gameList} from "@/stores/gamesStore";
+    import {gamesStore} from "@/stores/gamesStore";
 
     let parent: HTMLElement;
     let update = false;
@@ -38,8 +38,8 @@
 
     function addGame(): void {
         if (gameText.length === 0 ) return;
-        gameList.update(items => [...items, gameText]);
-        console.log($gameList);
+        gamesStore.push(gameText);
+        console.log($gamesStore);
     }
 
 </script>
