@@ -45,15 +45,18 @@
     const inputDebounce = debounce((e: Event) => {
         const target = e.target as HTMLInputElement;
         onChangeText(target.value);
-    }, 200);
+    }, 300);
 
     function onChangeText(text: string): void {
-        if (text.length < 3) {
-            options = [];
-        }
+        const trimedText = text.trim();
 
+        if (trimedText.length < 3) {
+            options = [];
+            return;
+        }
         loading = true;
-        getGames(text.trim())
+
+        getGames(trimedText)
             .then((games) => {
                 options = games;
             })
