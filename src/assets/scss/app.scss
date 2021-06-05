@@ -8,18 +8,18 @@
 
 html {
   height: 100%;
+  font-size:100%;
 }
 
 body {
   min-height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 main {
   text-align: center;
   padding: 0.2rem;
   margin: 0 auto;
-  height: 100%;
 }
 
 body {
@@ -36,6 +36,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   height: 100%;
 }
 

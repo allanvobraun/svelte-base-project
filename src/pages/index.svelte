@@ -6,7 +6,7 @@
 </script>
 
 <div class="content-wrapper">
-  <h1>GameOver.gg</h1>
+  <div class="title">GameOver.gg</div>
 
   <p>
     Add the games you have already completed and prove that you are an experienced gamer.
@@ -31,14 +31,15 @@
     margin-top: 100px;
   }
 
-  h1 {
+  .title {
     color: var(--orange);
     text-transform: uppercase;
-    font-size: 6rem;
+    /*font-size: 7.8vw;*/
+    font-size: clamp(2.8rem, 7.8vw, 7rem);
     font-weight: 100;
-    margin: .5rem auto;
-    max-width: 14rem;
+    margin: .2rem auto .5rem auto;
     font-family: nebula,sans-serif;
+    max-width: 100%;
   }
 
   p {
