@@ -11,12 +11,12 @@
             required/>
     <div class="botton-line" class:loading="{loading}"></div>
 
-    {#if options.length !== 0}
+    {#if games.length !== 0}
         <ul id="dropdown" class="dropdown-content">
-            {#each options as option }
-                <li on:click={() => optionClick(option)} transition:slide>
+            {#each games as game}
+                <li on:click={() => optionClick(game)} transition:slide>
                     <span>
-                        <span class="highlight">{option}</span>
+                        <span class="highlight">{game.name}</span>
                     </span>
                 </li>
             {/each}
@@ -30,16 +30,20 @@
     import axios from "axios";
     import debounce from "lodash.debounce";
     import { slide } from 'svelte/transition';
+    import type {Game} from "../types";
 
-    let options: string[] = [];
+    let games: Game[] = [];
+    export let selectedGame: Game;
     export let inputText = '';
     let rgbON = false;
     let loading = false;
     const searchURL: string = import.meta.env.VITE_SERVER_URL + 'search/';
 
-    function optionClick(text: string): void {
-        inputText = text;
-        options = [];
+    function optionClick(game: Game): void {
+        inputText = game.name;
+        selectedGame = game;
+        console.log(selectedGame);
+        games = [];
     }
 
     const inputDebounce = debounce((e: Event) => {
@@ -48,17 +52,18 @@
     }, 300);
 
     function onChangeText(text: string): void {
+        selectedGame = null;
         const trimedText = text.trim();
 
         if (trimedText.length < 3) {
-            options = [];
+            games = [];
             return;
         }
         loading = true;
 
         getGames(trimedText)
-            .then((games) => {
-                options = games;
+            .then((response) => {
+                games = response;
             })
             .catch((err) => {
                 console.log(err.response);
@@ -68,13 +73,13 @@
             });
     }
 
-    async function getGames(query: string): Promise<string[]> {
+    async function getGames(query: string): Promise<Game[]> {
         const response = await axios.get(searchURL + query);
-        return response.data as string[];
+        return response.data as Game[];
     }
 
     function onFocusLoss(): void {
-        options = [];
+        games = [];
         if (inputText === '') {
             rgbON = false;
         }

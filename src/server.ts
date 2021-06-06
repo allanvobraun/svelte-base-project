@@ -3,6 +3,7 @@ import axios from "axios";
 import dotenv from 'dotenv';
 import {IGDBAuth} from "./util/IGDBAuth";
 import cors from 'cors';
+import type {Game} from "./types";
 
 const app = express();
 app.use(cors({credentials: true, origin: true}));
@@ -11,10 +12,6 @@ dotenv.config();
 
 const igdbAuth = new IGDBAuth();
 
-interface IGBDResponse {
-    id: number;
-    name: string;
-}
 
 app.get('/api/search/:query', (req, res) => {
         const igdbRequestBody = `search "${req.params.query}";fields name;limit 5;`;
@@ -22,7 +19,7 @@ app.get('/api/search/:query', (req, res) => {
         axios.post(process.env.IGDB_API_URL + 'games', igdbRequestBody, {
             headers: igdbAuth.headers
         }).then(response => {
-            const games = response.data.map((item: IGBDResponse) => item.name);
+            const games: Game[] = response.data;
             res.send(games);
         }).catch(err => {
             console.log(igdbAuth.headers);

@@ -7,7 +7,7 @@
     </p>
 
     <div class="game-input">
-        <GamesInput bind:inputText={gameText}/>
+        <GamesInput bind:inputText={gameText} bind:selectedGame={gameObj}/>
     </div>
     <div style="margin: 50px auto">
         <BubbleButton on:click={addGame}>
@@ -24,10 +24,12 @@
     import {onMount} from 'svelte';
     import {textfit} from 'svelte-textfit';
     import {gamesStore} from "@/stores/gamesStore";
+    import type {Game} from "../types";
 
     let parent: HTMLElement;
     let update = false;
     let gameText: string;
+    let gameObj: Game;
 
 
     onMount(() => {
@@ -37,8 +39,14 @@
     });
 
     function addGame(): void {
-        if (gameText.length === 0 ) return;
-        gamesStore.push(gameText);
+        if (gameText.length === 0) return;
+        if (gameObj === null) {
+            gamesStore.push({id: null, name: gameText});
+            console.log($gamesStore);
+
+            return;
+        }
+        gamesStore.push(gameObj);
         console.log($gamesStore);
     }
 
