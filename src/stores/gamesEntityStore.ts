@@ -1,16 +1,16 @@
 import {Readable, Writable, writable} from 'svelte/store';
-import type {Game} from "@/types";
+import type GameEntity from "@/util/GameEntity";
 
 
-interface GamesStore extends Readable<Game[]> {
-    push: (item: Game) => void;
+interface GamesEntityStore extends Readable<GameEntity[]> {
+    push: (item: GameEntity) => void;
 }
 
-function gameIsEqual(game1: Game, game2: Game): boolean {
+function gameIsEqual(game1: GameEntity, game2: GameEntity): boolean {
     return game1.name.toLowerCase() === game2.name.toLowerCase();
 }
 
-function addGame(list: Game[], newGame: Game): Game[] {
+function addGame(list: GameEntity[], newGame: GameEntity): GameEntity[] {
     const alreadyExist = list.some((game) => gameIsEqual(game, newGame));
     if (alreadyExist) {
         return list;
@@ -19,14 +19,13 @@ function addGame(list: Game[], newGame: Game): Game[] {
     return list;
 }
 
-
-function createStore(): GamesStore {
-    const gameList: Writable<Game[]> = writable([]);
+function createStore(): GamesEntityStore {
+    const gameList: Writable<GameEntity[]> = writable([]);
     const {subscribe, update} = gameList;
 
     return {
         subscribe,
-        push(item: Game): void {
+        push(item: GameEntity): void {
             update((items) => addGame(items, item));
         }
     };

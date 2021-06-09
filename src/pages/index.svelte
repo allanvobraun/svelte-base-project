@@ -23,8 +23,9 @@
     import {faPlus} from '@fortawesome/free-solid-svg-icons';
     import {onMount} from 'svelte';
     import {textfit} from 'svelte-textfit';
-    import {gamesStore} from "@/stores/gamesStore";
+    import {gamesStore} from "../stores/gamesEntityStore";
     import type {Game} from "../types";
+    import GameEntity from "../util/GameEntity";
 
     let parent: HTMLElement;
     let update = false;
@@ -40,13 +41,13 @@
 
     function addGame(): void {
         if (gameText.length === 0) return;
-        if (gameObj === null) {
-            gamesStore.push({id: null, name: gameText});
-            console.log($gamesStore);
 
+        if (gameObj === null) {
+            gamesStore.push(new GameEntity({id: null, name: gameText}));
+            console.log($gamesStore);
             return;
         }
-        gamesStore.push(gameObj);
+        gamesStore.push(new GameEntity(gameObj));
         console.log($gamesStore);
     }
 

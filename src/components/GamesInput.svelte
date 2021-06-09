@@ -42,7 +42,6 @@
     function optionClick(game: Game): void {
         inputText = game.name;
         selectedGame = game;
-        console.log(selectedGame);
         games = [];
     }
 
@@ -59,6 +58,7 @@
             games = [];
             return;
         }
+
         loading = true;
 
         getGames(trimedText)
