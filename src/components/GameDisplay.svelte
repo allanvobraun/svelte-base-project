@@ -1,11 +1,11 @@
 <div class="game-card">
 
-    <img src="src/assets/images/portal2.jpg" alt="portal">
+    <img src={ gameEntity.cover ?? "src/assets/images/404.png"} alt="portal">
     <div class="card-body">
         <div class="card-center">
-            <span class="game-name">Portal 2</span>
+            <span class="game-name">{gameEntity.name}</span>
             <span class="game-date">
-                Added in 06/06/2021
+                {gameEntity.addedAt}
             </span>
         </div>
         <div class="card-end">
@@ -22,6 +22,9 @@
 <script lang="ts">
     import Fa from 'svelte-fa';
     import {faEdit, faTrashAlt} from '@fortawesome/free-regular-svg-icons';
+    import type GameEntity from "../util/GameEntity";
+
+    export let gameEntity: GameEntity;
 </script>
 
 <style lang="scss">
@@ -42,13 +45,16 @@
     flex-direction: row;
     margin: .5rem;
     background-color: #333333;
+    max-height: 250px;
 
     img {
-      max-width: 40%;
+      width: 400px;
+      height: 200px;
+      object-fit: cover;
     }
 
     .card-body {
-      width: 100%;
+      flex-grow: 1;
       display: flex;
       flex-direction: row;
 

@@ -2,14 +2,17 @@
     <div class="content-wrapper">
         <h1>Your game overs:</h1>
         <div class="game-list">
-            <GameDisplay/>
-            <GameDisplay/>
+            {#each $gamesStore as game}
+                <GameDisplay gameEntity={game}/>
+            {/each}
         </div>
     </div>
 </div>
 
 <script lang="ts">
     import GameDisplay from '@/components/GameDisplay.svelte';
+    import {gamesStore} from "../stores/gamesEntityStore";
+
 </script>
 
 <style lang="scss">

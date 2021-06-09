@@ -21,12 +21,10 @@ app.get('/api/search/:query', (req, res) => {
         }).then(response => {
             const gamesResponse: IGDBGameResponse[] = response.data;
             const games: Game[] = gamesResponse.map(({cover, id, name}: IGDBGameResponse) => {
-                return {cover: cover.url, id, name};
+                return {cover: cover.url.replace('t_thumb', 't_cover_big_2x'), id, name};
             });
             res.send(games);
         }).catch(err => {
-            console.log(igdbAuth.headers);
-            console.log(err.request.headers);
             res.status(400).send({message: 'Error in IGDB api', igdbStatus: err.status});
         });
     }

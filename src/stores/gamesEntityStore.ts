@@ -1,5 +1,5 @@
 import {Readable, Writable, writable} from 'svelte/store';
-import type GameEntity from "@/util/GameEntity";
+import  GameEntity from "@/util/GameEntity";
 
 
 interface GamesEntityStore extends Readable<GameEntity[]> {
@@ -20,7 +20,12 @@ function addGame(list: GameEntity[], newGame: GameEntity): GameEntity[] {
 }
 
 function createStore(): GamesEntityStore {
-    const gameList: Writable<GameEntity[]> = writable([]);
+    const fakeData: GameEntity[] = [
+        new GameEntity({name: 'Lorem ipsum dolor', id: null}),
+        new GameEntity({name: 'Lorem ipsum dolor', id: null}),
+        new GameEntity({name: 'Lorem ipsum dolor', id: null}),
+    ];
+    const gameList: Writable<GameEntity[]> = writable(fakeData);
     const {subscribe, update} = gameList;
 
     return {
